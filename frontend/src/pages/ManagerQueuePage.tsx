@@ -351,11 +351,11 @@ export default function ManagerQueuePage() {
         style={{
           width: '100vw',
           height: '100vh',
-          background: '#060612',
+          background: 'var(--app-bg)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'white',
+          color: 'var(--text-primary)',
         }}
       >
         <Loader2 size={36} style={{ animation: 'spin 1s linear infinite', color: '#6366f1' }} />
@@ -368,18 +368,14 @@ export default function ManagerQueuePage() {
   }
 
   // Visual Theme Mappings
-  const containerBg = isDark
-    ? 'linear-gradient(135deg, #060612 0%, #0d0d2b 100%)'
-    : 'linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%)'
+  const sidebarBg = 'var(--sidebar-bg)'
+  const borderRightStyle = 'var(--sidebar-border)'
+  const borderBottomStyle = 'var(--border-color)'
 
-  const sidebarBg = isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.015)'
-  const borderRightStyle = isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(15,23,42,0.08)'
-  const borderBottomStyle = isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(15,23,42,0.08)'
-
-  const headingColor = isDark ? 'white' : '#0f172a'
-  const textColor = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(15, 23, 42, 0.7)'
-  const previewTextColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(15, 23, 42, 0.45)'
-  const chatHeaderBg = isDark ? 'rgba(10, 10, 25, 0.3)' : 'rgba(255, 255, 255, 0.5)'
+  const headingColor = 'var(--text-heading)'
+  const textColor = 'var(--text-primary)'
+  const previewTextColor = 'var(--text-muted)'
+  const chatHeaderBg = 'var(--chat-header-bg)'
 
   return (
     <div
@@ -389,14 +385,14 @@ export default function ManagerQueuePage() {
         width: '100vw',
         height: '100vh',
         display: 'flex',
-        background: isDark ? '#060612' : '#f8fafc',
-        backgroundImage: containerBg,
+        background: 'var(--app-bg)',
+        backgroundImage: 'var(--app-bg)',
         overflow: 'hidden',
         margin: 0,
         padding: 0,
         fontFamily: "'Inter', -apple-system, sans-serif",
       }}
-      className="theme-transition"
+      className={`theme-transition ${theme}`}
     >
       <style>{`
         .theme-transition, .theme-transition * {
@@ -410,14 +406,14 @@ export default function ManagerQueuePage() {
           background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-          background: ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'};
+          background: var(--scrollbar-thumb);
           border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
-          background: ${isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'};
+          background: var(--scrollbar-thumb-hover);
         }
         input::placeholder, textarea::placeholder {
-          color: ${isDark ? 'rgba(255,255,255,0.25)' : 'rgba(15,23,42,0.4)'} !important;
+          color: var(--input-placeholder) !important;
         }
       `}</style>
 
@@ -526,10 +522,10 @@ export default function ManagerQueuePage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
                 width: '100%',
-                background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)',
-                border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(15,23,42,0.1)',
+                background: 'var(--input-bg)',
+                border: 'var(--input-border)',
                 borderRadius: '8px',
-                color: isDark ? 'white' : '#0f172a',
+                color: 'var(--input-text)',
                 padding: '8px 12px 8px 30px',
                 fontSize: '13px',
                 outline: 'none',
@@ -556,26 +552,26 @@ export default function ManagerQueuePage() {
               onChange={(e) => setStatusFilter(e.target.value as any)}
               style={{
                 width: '100%',
-                background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.03)',
-                border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(15,23,42,0.1)',
+                background: 'var(--input-bg)',
+                border: 'var(--input-border)',
                 borderRadius: '8px',
-                color: isDark ? 'white' : '#0f172a',
+                color: 'var(--input-text)',
                 padding: '8px 24px 8px 12px',
                 fontSize: '13px',
                 fontWeight: 500,
                 outline: 'none',
                 cursor: 'pointer',
                 appearance: 'none',
-                backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='${isDark ? 'white' : 'black'}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                backgroundImage: 'var(--select-arrow)',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'right 10px center',
                 backgroundSize: '12px',
               }}
             >
-              <option value="all" style={{ background: isDark ? '#0d0d2b' : 'white' }}>All Statuses</option>
-              <option value="open" style={{ background: isDark ? '#0d0d2b' : 'white' }}>Open</option>
-              <option value="pending" style={{ background: isDark ? '#0d0d2b' : 'white' }}>Pending</option>
-              <option value="closed" style={{ background: isDark ? '#0d0d2b' : 'white' }}>Closed</option>
+              <option value="all" style={{ background: 'var(--input-bg)', color: 'var(--input-text)' }}>All Statuses</option>
+              <option value="open" style={{ background: 'var(--input-bg)', color: 'var(--input-text)' }}>Open</option>
+              <option value="pending" style={{ background: 'var(--input-bg)', color: 'var(--input-text)' }}>Pending</option>
+              <option value="closed" style={{ background: 'var(--input-bg)', color: 'var(--input-text)' }}>Closed</option>
             </select>
           </div>
         </div>
@@ -633,14 +629,14 @@ export default function ManagerQueuePage() {
           ) : (
             threads.map((thread) => {
               const isSelected = activeThreadId === thread.id
-              let badgeBg = 'rgba(156,163,175,0.15)'
-              let badgeColor = '#9ca3af'
+              let badgeBg = 'var(--badge-closed-bg)'
+              let badgeColor = 'var(--badge-closed-text)'
               if (thread.status === 'open') {
-                badgeBg = isDark ? 'rgba(34,197,94,0.15)' : 'rgba(34,197,94,0.12)'
-                badgeColor = isDark ? '#86efac' : '#166534'
+                badgeBg = 'var(--badge-open-bg)'
+                badgeColor = 'var(--badge-open-text)'
               } else if (thread.status === 'pending') {
-                badgeBg = isDark ? 'rgba(234,179,8,0.15)' : 'rgba(234,179,8,0.12)'
-                badgeColor = isDark ? '#fef08a' : '#854d0e'
+                badgeBg = 'var(--badge-pending-bg)'
+                badgeColor = 'var(--badge-pending-text)'
               }
 
               const studentName = thread.student?.full_name || 'Anonymous Student'
@@ -650,22 +646,19 @@ export default function ManagerQueuePage() {
                 <div
                   key={thread.id}
                   onClick={() => setActiveThreadId(thread.id)}
+                  className="thread-item"
                   style={{
                     padding: '16px',
                     borderRadius: '10px',
                     cursor: 'pointer',
                     transition: 'all 0.2s',
                     background: isSelected
-                      ? isDark
-                        ? 'rgba(99,102,241,0.08)'
-                        : 'rgba(99,102,241,0.05)'
+                      ? 'var(--item-selected-bg)'
                       : 'transparent',
-                    borderLeft: isSelected ? '3px solid #6366f1' : '3px solid transparent',
+                    borderLeft: isSelected ? '3px solid var(--tab-active-text)' : '3px solid transparent',
                     marginBottom: '8px',
                     boxShadow: isSelected
-                      ? isDark
-                        ? '0 4px 12px rgba(0,0,0,0.15)'
-                        : '0 4px 12px rgba(99,102,241,0.04)'
+                      ? 'var(--card-shadow)'
                       : 'none',
                   }}
                 >
@@ -725,13 +718,13 @@ export default function ManagerQueuePage() {
                   >
                     <CornerDownRight size={10} style={{ opacity: 0.5 }} />
                     {assigneeName ? (
-                      <span>Assigned to: <strong style={{ color: isDark ? 'white' : '#0f172a' }}>{assigneeName}</strong></span>
+                      <span>Assigned to: <strong style={{ color: headingColor }}>{assigneeName}</strong></span>
                     ) : (
                       <span
                         style={{
                           fontSize: '10px',
-                          color: isDark ? 'rgba(239, 68, 68, 0.7)' : '#b91c1c',
-                          background: isDark ? 'rgba(239, 68, 68, 0.08)' : 'rgba(239, 68, 68, 0.05)',
+                          color: 'var(--badge-danger-text)',
+                          background: 'var(--badge-danger-bg)',
                           padding: '1px 5px',
                           borderRadius: '4px',
                           fontWeight: 500,
@@ -838,24 +831,16 @@ export default function ManagerQueuePage() {
                         textTransform: 'uppercase',
                         background:
                           activeThread.status === 'open'
-                            ? isDark
-                              ? 'rgba(34,197,94,0.15)'
-                              : 'rgba(34,197,94,0.12)'
+                            ? 'var(--badge-open-bg)'
                             : activeThread.status === 'pending'
-                              ? isDark
-                                ? 'rgba(234,179,8,0.15)'
-                                : 'rgba(234,179,8,0.12)'
-                              : 'rgba(156,163,175,0.15)',
+                              ? 'var(--badge-pending-bg)'
+                              : 'var(--badge-closed-bg)',
                         color:
                           activeThread.status === 'open'
-                            ? isDark
-                              ? '#86efac'
-                              : '#166534'
+                            ? 'var(--badge-open-text)'
                             : activeThread.status === 'pending'
-                              ? isDark
-                                ? '#fef08a'
-                                : '#854d0e'
-                              : '#9ca3af',
+                              ? 'var(--badge-pending-text)'
+                              : 'var(--badge-closed-text)',
                       }}
                     >
                       {activeThread.status}
@@ -900,25 +885,25 @@ export default function ManagerQueuePage() {
                         updateStatusMutation.mutate(e.target.value as any)
                       }
                       style={{
-                        background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.03)',
-                        border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(15,23,42,0.1)',
+                        background: 'var(--input-bg)',
+                        border: 'var(--input-border)',
                         borderRadius: '8px',
-                        color: isDark ? 'white' : '#0f172a',
+                        color: 'var(--input-text)',
                         padding: '6px 24px 6px 12px',
                         fontSize: '12px',
                         fontWeight: 600,
                         cursor: 'pointer',
                         outline: 'none',
                         appearance: 'none',
-                        backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='${isDark ? 'white' : 'black'}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                        backgroundImage: 'var(--select-arrow)',
                         backgroundRepeat: 'no-repeat',
                         backgroundPosition: 'right 8px center',
                         backgroundSize: '12px',
                       }}
                     >
-                      <option value="open" style={{ background: isDark ? '#0d0d2b' : 'white' }}>Open (Reopen)</option>
-                      <option value="pending" style={{ background: isDark ? '#0d0d2b' : 'white' }}>Pending</option>
-                      <option value="closed" style={{ background: isDark ? '#0d0d2b' : 'white' }}>Closed</option>
+                      <option value="open" style={{ background: 'var(--input-bg)', color: 'var(--input-text)' }}>Open (Reopen)</option>
+                      <option value="pending" style={{ background: 'var(--input-bg)', color: 'var(--input-text)' }}>Pending</option>
+                      <option value="closed" style={{ background: 'var(--input-bg)', color: 'var(--input-text)' }}>Closed</option>
                     </select>
                   )}
 
@@ -933,13 +918,11 @@ export default function ManagerQueuePage() {
                       cursor: 'pointer',
                       padding: '6px',
                       borderRadius: '8px',
-                      color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(15,23,42,0.5)',
+                      color: 'var(--text-muted)',
                       display: 'flex',
                       alignItems: 'center',
                       backgroundColor: closeHovered
-                        ? isDark
-                          ? 'rgba(255,255,255,0.05)'
-                          : 'rgba(0,0,0,0.05)'
+                        ? 'var(--item-hover-bg)'
                         : 'transparent',
                       transition: 'all 0.2s',
                     }}
@@ -1008,26 +991,12 @@ export default function ManagerQueuePage() {
                             fontSize: '14px',
                             lineHeight: '1.45',
                             wordBreak: 'break-word',
-                            color: isDark ? 'white' : '#0f172a',
-                            background: isTeam
-                              ? isDark
-                                ? 'rgba(99,102,241,0.2)'
-                                : 'rgba(99,102,241,0.1)'
-                              : isDark
-                                ? 'rgba(255,255,255,0.05)'
-                                : 'rgba(15,23,42,0.05)',
-                            border: isTeam
-                              ? isDark
-                                ? '1px solid rgba(99,102,241,0.3)'
-                                : '1px solid rgba(99,102,241,0.2)'
-                              : isDark
-                                ? '1px solid rgba(255,255,255,0.08)'
-                                : '1px solid rgba(15,23,42,0.08)',
+                            color: isTeam ? 'var(--msg-team-text)' : 'var(--msg-student-text)',
+                            background: isTeam ? 'var(--msg-team-bg)' : 'var(--msg-student-bg)',
+                            border: isTeam ? 'var(--msg-team-border)' : '1px solid var(--msg-student-bg)',
                             borderTopRightRadius: isTeam ? '2px' : '12px',
                             borderTopLeftRadius: isTeam ? '12px' : '2px',
-                            boxShadow: isDark
-                              ? '0 2px 8px rgba(0,0,0,0.15)'
-                              : '0 2px 8px rgba(99,102,241,0.03)',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
                           }}
                         >
                           {msg.body}
@@ -1070,11 +1039,11 @@ export default function ManagerQueuePage() {
                     style={{
                       flex: 1,
                       height: '52px',
-                      background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.03)',
-                      border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(15,23,42,0.1)',
+                      background: 'var(--input-bg)',
+                      border: 'var(--input-border)',
                       borderRadius: '12px',
                       padding: '14px 16px',
-                      color: isDark ? 'white' : '#0f172a',
+                      color: 'var(--input-text)',
                       fontSize: '14px',
                       outline: 'none',
                       resize: 'none',
@@ -1145,7 +1114,7 @@ export default function ManagerQueuePage() {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(6, 6, 18, 0.8)',
+            background: 'var(--overlay-bg)',
             backdropFilter: 'blur(12px)',
             WebkitBackdropFilter: 'blur(12px)',
             display: 'flex',
@@ -1158,13 +1127,11 @@ export default function ManagerQueuePage() {
             style={{
               width: '100%',
               maxWidth: '440px',
-              background: isDark ? 'rgba(10, 10, 25, 0.9)' : 'rgba(255, 255, 255, 0.95)',
-              border: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(15, 23, 42, 0.1)',
+              background: 'var(--card-bg)',
+              border: 'var(--card-border)',
               borderRadius: '20px',
               padding: '28px',
-              boxShadow: isDark
-                ? '0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(99, 102, 241, 0.1)'
-                : '0 20px 50px rgba(0, 0, 0, 0.1), 0 0 40px rgba(99, 102, 241, 0.05)',
+              boxShadow: 'var(--card-shadow)',
               fontFamily: "'Inter', -apple-system, sans-serif",
             }}
           >
@@ -1198,8 +1165,8 @@ export default function ManagerQueuePage() {
               disabled={isSalesUsersLoading}
               style={{
                 width: '100%',
-                background: isDark ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0, 0, 0, 0.03)',
-                border: isDark ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid rgba(15, 23, 42, 0.1)',
+                background: 'var(--input-bg)',
+                border: 'var(--input-border)',
                 borderRadius: '10px',
                 color: headingColor,
                 padding: '12px 16px',
@@ -1209,15 +1176,15 @@ export default function ManagerQueuePage() {
                 cursor: 'pointer',
               }}
             >
-              <option value="" style={{ background: isDark ? '#0a0a19' : 'white', color: previewTextColor }}>
+              <option value="" style={{ background: 'var(--input-bg)', color: previewTextColor }}>
                 {isSalesUsersLoading ? 'Loading users...' : 'Select a sales representative...'}
               </option>
               {salesUsers.map((user) => (
-                <option key={user.id} value={user.id} style={{ background: isDark ? '#0a0a19' : 'white', color: headingColor }}>
+                <option key={user.id} value={user.id} style={{ background: 'var(--input-bg)', color: headingColor }}>
                   {user.full_name}
                 </option>
               ))}
-              <option value="unassigned" style={{ background: isDark ? '#0a0a19' : 'white', color: headingColor }}>
+              <option value="unassigned" style={{ background: 'var(--input-bg)', color: headingColor }}>
                 Unassigned (Remove Assignee)
               </option>
             </select>
@@ -1226,10 +1193,10 @@ export default function ManagerQueuePage() {
               <button
                 onClick={() => setIsReassignOpen(false)}
                 style={{
-                  background: isDark ? 'rgba(255, 255, 255, 0.04)' : 'rgba(0, 0, 0, 0.02)',
-                  border: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(15, 23, 42, 0.08)',
+                  background: 'var(--btn-secondary-bg)',
+                  border: 'var(--btn-secondary-border)',
                   borderRadius: '10px',
-                  color: isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(15, 23, 42, 0.7)',
+                  color: 'var(--btn-secondary-text)',
                   padding: '10px 18px',
                   fontSize: '13px',
                   fontWeight: 600,
@@ -1246,7 +1213,7 @@ export default function ManagerQueuePage() {
                 }}
                 disabled={reassignMutation.isPending}
                 style={{
-                  background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                  background: 'var(--btn-primary-bg)',
                   border: 'none',
                   borderRadius: '10px',
                   color: 'white',
@@ -1254,7 +1221,7 @@ export default function ManagerQueuePage() {
                   fontSize: '13px',
                   fontWeight: 600,
                   cursor: reassignMutation.isPending ? 'not-allowed' : 'pointer',
-                  boxShadow: '0 4px 12px rgba(99, 102, 241, 0.25)',
+                  boxShadow: 'var(--btn-primary-hover-shadow)',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',

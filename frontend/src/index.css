@@ -58,7 +58,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body, #root { width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden; }
+html, body, #root { width: 100%; min-height: 100%; margin: 0; padding: 0; }
 
 h1,
 h2 {
@@ -184,5 +184,149 @@ code {
   }
   html {
     @apply font-sans;
+  }
+
+  :root {
+    --app-bg: linear-gradient(135deg, #f5f7fb 0%, #eef2ff 50%, #f5f7fb 100%);
+    --app-grid-color: linear-gradient(rgba(99, 102, 241, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(99, 102, 241, 0.025) 1px, transparent 1px);
+    --app-wireframe-glow: rgba(99, 102, 241, 0.05);
+    --app-wireframe-stroke: rgba(99, 102, 241, 0.08);
+
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --card-border: 1px solid rgba(226, 232, 240, 0.8);
+    --card-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 20px 40px -4px rgba(99,102,241,0.05), 0 0 50px rgba(99,102,241,0.02);
+    --sidebar-bg: rgba(248, 250, 252, 0.7);
+    --sidebar-border: 1px solid rgba(226, 232, 240, 0.8);
+    --chat-header-bg: rgba(255, 255, 255, 0.6);
+
+    --text-heading: #0f172a;
+    --text-primary: #334155;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --label-color: #475569;
+
+    --input-bg: #ffffff;
+    --input-border: 1px solid #e2e8f0;
+    --input-text: #0f172a;
+    --input-focus-border: 1px solid #6366f1;
+    --input-focus-shadow: 0 0 0 3px rgba(99, 102, 241, 0.12);
+    --input-placeholder: #94a3b8;
+
+    --btn-primary-bg: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    --btn-primary-hover-shadow: 0 6px 20px rgba(79, 70, 229, 0.25);
+    --btn-secondary-bg: #ffffff;
+    --btn-secondary-border: 1px solid #e2e8f0;
+    --btn-secondary-text: #475569;
+    --btn-secondary-hover-bg: #f8fafc;
+
+    --tabs-bg: #f1f5f9;
+    --tabs-border: 1px solid #e2e8f0;
+    --tab-active-bg: #ffffff;
+    --tab-active-text: #4f46e5;
+    --tab-active-border: 1px solid #e2e8f0;
+    --tab-active-shadow: 0 1px 3px rgba(0,0,0,0.05);
+
+    --item-hover-bg: #f8fafc;
+    --item-selected-bg: #eef2ff;
+
+    --scrollbar-thumb: #cbd5e1;
+    --scrollbar-thumb-hover: #94a3b8;
+
+    --msg-student-bg: #4f46e5;
+    --msg-student-text: #ffffff;
+    --msg-team-bg: #f1f5f9;
+    --msg-team-text: #1e293b;
+    --msg-team-border: 1px solid #e2e8f0;
+
+    --border-color: #e2e8f0;
+    --divider-bg: linear-gradient(90deg, transparent, #e2e8f0, transparent);
+    --overlay-bg: rgba(15, 23, 42, 0.3);
+
+    --select-arrow: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    --badge-open-bg: rgba(34, 197, 94, 0.12);
+    --badge-open-text: #166534;
+    --badge-pending-bg: rgba(234, 179, 8, 0.12);
+    --badge-pending-text: #854d0e;
+    --badge-closed-bg: rgba(148, 163, 184, 0.12);
+    --badge-closed-text: #475569;
+    --badge-danger-bg: rgba(239, 68, 68, 0.05);
+    --badge-danger-text: #b91c1c;
+  }
+
+  .dark {
+    --app-bg: linear-gradient(135deg, #060612 0%, #0d0d2b 40%, #0a0a1a 100%);
+    --app-grid-color: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    --app-wireframe-glow: rgba(6, 182, 212, 0.16);
+    --app-wireframe-stroke: rgba(6, 182, 212, 0.22);
+
+    --card-bg: rgba(10, 10, 25, 0.45);
+    --card-border: 1px solid rgba(255, 255, 255, 0.08);
+    --card-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 32px 64px rgba(0, 0, 0, 0.6), 0 0 80px rgba(99, 102, 241, 0.08);
+    --sidebar-bg: rgba(255, 255, 255, 0.02);
+    --sidebar-border: 1px solid rgba(255, 255, 255, 0.08);
+    --chat-header-bg: rgba(10, 10, 25, 0.3);
+
+    --text-heading: #ffffff;
+    --text-primary: rgba(255, 255, 255, 0.85);
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-muted: rgba(255, 255, 255, 0.45);
+    --label-color: rgba(255, 255, 255, 0.4);
+
+    --input-bg: rgba(255, 255, 255, 0.04);
+    --input-border: 1px solid rgba(255, 255, 255, 0.1);
+    --input-text: #ffffff;
+    --input-focus-border: 1px solid #818cf8;
+    --input-focus-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+    --input-placeholder: rgba(255, 255, 255, 0.25);
+
+    --btn-primary-bg: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    --btn-primary-hover-shadow: 0 12px 40px rgba(99, 102, 241, 0.45);
+    --btn-secondary-bg: rgba(255, 255, 255, 0.05);
+    --btn-secondary-border: 1px solid rgba(255, 255, 255, 0.08);
+    --btn-secondary-text: rgba(255, 255, 255, 0.8);
+    --btn-secondary-hover-bg: rgba(255, 255, 255, 0.08);
+
+    --tabs-bg: rgba(255, 255, 255, 0.03);
+    --tabs-border: 1px solid rgba(255, 255, 255, 0.08);
+    --tab-active-bg: linear-gradient(135deg, rgba(99, 102, 241, 0.5), rgba(139, 92, 246, 0.35));
+    --tab-active-text: #ffffff;
+    --tab-active-border: 1px solid rgba(99, 102, 241, 0.45);
+    --tab-active-shadow: 0 4px 15px rgba(99,102,241,0.35);
+
+    --item-hover-bg: rgba(255, 255, 255, 0.02);
+    --item-selected-bg: rgba(99, 102, 241, 0.08);
+
+    --scrollbar-thumb: rgba(255, 255, 255, 0.1);
+    --scrollbar-thumb-hover: rgba(255, 255, 255, 0.2);
+
+    --msg-student-bg: #6366f1;
+    --msg-student-text: #ffffff;
+    --msg-team-bg: rgba(255, 255, 255, 0.05);
+    --msg-team-text: rgba(255, 255, 255, 0.9);
+    --msg-team-border: 1px solid rgba(255, 255, 255, 0.08);
+
+    --border-color: rgba(255, 255, 255, 0.08);
+    --divider-bg: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    --overlay-bg: rgba(0, 0, 0, 0.6);
+
+    --select-arrow: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    --badge-open-bg: rgba(34, 197, 94, 0.15);
+    --badge-open-text: #86efac;
+    --badge-pending-bg: rgba(234, 179, 8, 0.15);
+    --badge-pending-text: #fef08a;
+    --badge-closed-bg: rgba(156, 163, 175, 0.15);
+    --badge-closed-text: #9ca3af;
+    --badge-danger-bg: rgba(239, 68, 68, 0.08);
+    --badge-danger-text: rgba(239, 68, 68, 0.7);
+  }
+
+  /* Theme-specific overrides and improvements */
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--input-focus-border) !important;
+    box-shadow: var(--input-focus-shadow) !important;
+  }
+
+  .thread-item:hover {
+    background: var(--item-hover-bg) !important;
   }
 }

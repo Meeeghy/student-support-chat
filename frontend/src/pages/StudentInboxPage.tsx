@@ -267,22 +267,19 @@ export default function StudentInboxPage() {
   }
 
   // Visual Theme Mappings
+  const sidebarBg = 'var(--sidebar-bg)'
+  const borderRightStyle = 'var(--sidebar-border)'
+  const borderBottomStyle = 'var(--border-color)'
 
-  const sidebarBg = isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.015)'
-  const borderRightStyle = isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(15,23,42,0.08)'
-  const borderBottomStyle = isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(15,23,42,0.08)'
+  const headingColor = 'var(--text-heading)'
+  const textColor = 'var(--text-primary)'
+  const previewTextColor = 'var(--text-muted)'
 
-  const headingColor = isDark ? 'white' : '#0f172a'
-  const textColor = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(15, 23, 42, 0.7)'
-  const previewTextColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(15, 23, 42, 0.45)'
+  const chatHeaderBg = 'var(--chat-header-bg)'
 
-  const chatHeaderBg = isDark ? 'rgba(10, 10, 25, 0.3)' : 'rgba(255, 255, 255, 0.5)'
-
-  const cardBorder = isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(99,102,241,0.12)'
-  const cardShadow = isDark
-    ? '0 0 0 1px rgba(255,255,255,0.05), 0 32px 64px rgba(0,0,0,0.6), 0 0 80px rgba(99,102,241,0.08)'
-    : '0 0 0 1px rgba(99,102,241,0.05), 0 32px 64px rgba(99,102,241,0.07), 0 0 80px rgba(99,102,241,0.04)'
-  const labelColor = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(15, 23, 42, 0.55)'
+  const cardBorder = 'var(--card-border)'
+  const cardShadow = 'var(--card-shadow)'
+  const labelColor = 'var(--label-color)'
 
   return (
     <div
@@ -292,13 +289,14 @@ export default function StudentInboxPage() {
         width: '100vw',
         height: '100vh',
         display: 'flex',
-        background: '#060612',
+        background: 'var(--app-bg)',
+        backgroundImage: 'var(--app-bg)',
         overflow: 'hidden',
         margin: 0,
         padding: 0,
         fontFamily: "'Inter', -apple-system, sans-serif",
       }}
-      className="theme-transition"
+      className={`theme-transition ${theme}`}
     >
       <style>{`
         .theme-transition, .theme-transition * {
@@ -312,14 +310,14 @@ export default function StudentInboxPage() {
           background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-          background: ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'};
+          background: var(--scrollbar-thumb);
           border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
-          background: ${isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'};
+          background: var(--scrollbar-thumb-hover);
         }
         input::placeholder, textarea::placeholder {
-          color: ${isDark ? 'rgba(255,255,255,0.25)' : 'rgba(15,23,42,0.4)'} !important;
+          color: var(--input-placeholder) !important;
         }
       `}</style>
 
@@ -364,13 +362,11 @@ export default function StudentInboxPage() {
                 cursor: 'pointer',
                 padding: '6px',
                 borderRadius: '8px',
-                color: isDark ? 'rgba(255,255,255,0.6)' : 'rgba(15,23,42,0.6)',
+                color: 'var(--text-secondary)',
                 display: 'flex',
                 alignItems: 'center',
                 backgroundColor: themeHovered
-                  ? isDark
-                    ? 'rgba(255,255,255,0.05)'
-                    : 'rgba(0,0,0,0.05)'
+                  ? 'var(--item-hover-bg)'
                   : 'transparent',
               }}
             >
@@ -392,9 +388,7 @@ export default function StudentInboxPage() {
                 display: 'flex',
                 alignItems: 'center',
                 backgroundColor: logoutHovered
-                  ? isDark
-                    ? 'rgba(239,68,68,0.1)'
-                    : 'rgba(239,68,68,0.05)'
+                  ? (isDark ? 'rgba(239,68,68,0.1)' : 'rgba(239,68,68,0.05)')
                   : 'transparent',
               }}
             >
@@ -412,7 +406,7 @@ export default function StudentInboxPage() {
             style={{
               width: '100%',
               height: '42px',
-              background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+              background: 'var(--btn-primary-bg)',
               border: 'none',
               borderRadius: '10px',
               color: 'white',
@@ -425,8 +419,8 @@ export default function StudentInboxPage() {
               gap: '6px',
               transition: 'all 0.25s ease',
               boxShadow: newConvHovered
-                ? '0 6px 20px rgba(99,102,241,0.4)'
-                : '0 4px 12px rgba(99,102,241,0.25)',
+                ? 'var(--btn-primary-hover-shadow)'
+                : 'none',
               transform: newConvHovered ? 'translateY(-1px)' : 'translateY(0)',
             }}
           >
@@ -454,21 +448,13 @@ export default function StudentInboxPage() {
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   background: isTabActive
-                    ? isDark
-                      ? 'rgba(99,102,241,0.25)'
-                      : 'rgba(99,102,241,0.12)'
+                    ? 'var(--item-selected-bg)'
                     : 'transparent',
                   color: isTabActive
-                    ? isDark
-                      ? '#a5b4fc'
-                      : '#4f46e5'
-                    : isDark
-                      ? 'rgba(255,255,255,0.4)'
-                      : 'rgba(15,23,42,0.5)',
+                    ? 'var(--tab-active-text)'
+                    : 'var(--text-muted)',
                   borderBottom: isTabActive
-                    ? isDark
-                      ? '1px solid #6366f1'
-                      : '1px solid #4f46e5'
+                    ? '1px solid var(--tab-active-text)'
                     : '1px solid transparent',
                 }}
               >
@@ -488,9 +474,9 @@ export default function StudentInboxPage() {
                 style={{
                   padding: '16px',
                   borderRadius: '10px',
-                  background: isDark ? 'rgba(255,255,255,0.01)' : 'rgba(0,0,0,0.01)',
+                  background: 'var(--item-hover-bg)',
                   marginBottom: '8px',
-                  border: isDark ? '1px solid rgba(255,255,255,0.03)' : '1px solid rgba(0,0,0,0.03)',
+                  border: '1px solid var(--border-color)',
                   opacity: 0.5,
                 }}
               >
@@ -498,7 +484,7 @@ export default function StudentInboxPage() {
                   style={{
                     height: '14px',
                     width: '60%',
-                    background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+                    background: 'var(--tabs-bg)',
                     borderRadius: '4px',
                     marginBottom: '8px',
                   }}
@@ -507,7 +493,7 @@ export default function StudentInboxPage() {
                   style={{
                     height: '11px',
                     width: '80%',
-                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
+                    background: 'var(--tabs-bg)',
                     borderRadius: '4px',
                   }}
                 />
@@ -523,7 +509,7 @@ export default function StudentInboxPage() {
               style={{
                 padding: '40px 16px',
                 textAlign: 'center',
-                color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(15,23,42,0.4)',
+                color: 'var(--text-muted)',
                 fontSize: '13px',
               }}
             >
@@ -546,22 +532,19 @@ export default function StudentInboxPage() {
                 <div
                   key={thread.id}
                   onClick={() => setActiveThreadId(thread.id)}
+                  className="thread-item"
                   style={{
                     padding: '16px',
                     borderRadius: '10px',
                     cursor: 'pointer',
                     transition: 'all 0.2s',
                     background: isSelected
-                      ? isDark
-                        ? 'rgba(99,102,241,0.08)'
-                        : 'rgba(99,102,241,0.05)'
+                      ? 'var(--item-selected-bg)'
                       : 'transparent',
-                    borderLeft: isSelected ? '3px solid #6366f1' : '3px solid transparent',
+                    borderLeft: isSelected ? '3px solid var(--tab-active-text)' : '3px solid transparent',
                     marginBottom: '8px',
                     boxShadow: isSelected
-                      ? isDark
-                        ? '0 4px 12px rgba(0,0,0,0.15)'
-                        : '0 4px 12px rgba(99,102,241,0.04)'
+                      ? 'var(--card-shadow)'
                       : 'none',
                   }}
                 >
@@ -708,23 +691,15 @@ export default function StudentInboxPage() {
                         textTransform: 'uppercase',
                         background:
                           activeThread.status === 'open'
-                            ? isDark
-                              ? 'rgba(34,197,94,0.15)'
-                              : 'rgba(34,197,94,0.12)'
+                            ? (isDark ? 'rgba(34,197,94,0.15)' : 'rgba(34,197,94,0.12)')
                             : activeThread.status === 'pending'
-                              ? isDark
-                                ? 'rgba(234,179,8,0.15)'
-                                : 'rgba(234,179,8,0.12)'
+                              ? (isDark ? 'rgba(234,179,8,0.15)' : 'rgba(234,179,8,0.12)')
                               : 'rgba(156,163,175,0.15)',
                         color:
                           activeThread.status === 'open'
-                            ? isDark
-                              ? '#86efac'
-                              : '#166534'
+                            ? (isDark ? '#86efac' : '#166534')
                             : activeThread.status === 'pending'
-                              ? isDark
-                                ? '#fef08a'
-                                : '#854d0e'
+                              ? (isDark ? '#fef08a' : '#854d0e')
                               : '#9ca3af',
                       }}
                     >
@@ -743,13 +718,11 @@ export default function StudentInboxPage() {
                     cursor: 'pointer',
                     padding: '6px',
                     borderRadius: '8px',
-                    color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(15,23,42,0.5)',
+                    color: 'var(--text-muted)',
                     display: 'flex',
                     alignItems: 'center',
                     backgroundColor: closeHovered
-                      ? isDark
-                        ? 'rgba(255,255,255,0.05)'
-                        : 'rgba(0,0,0,0.05)'
+                      ? 'var(--item-hover-bg)'
                       : 'transparent',
                     transition: 'all 0.2s',
                   }}
@@ -816,26 +789,12 @@ export default function StudentInboxPage() {
                             fontSize: '14px',
                             lineHeight: '1.45',
                             wordBreak: 'break-word',
-                            color: isDark ? 'white' : '#0f172a',
-                            background: isStudent
-                              ? isDark
-                                ? 'rgba(99,102,241,0.2)'
-                                : 'rgba(99,102,241,0.1)'
-                              : isDark
-                                ? 'rgba(255,255,255,0.05)'
-                                : 'rgba(15,23,42,0.05)',
-                            border: isStudent
-                              ? isDark
-                                ? '1px solid rgba(99,102,241,0.3)'
-                                : '1px solid rgba(99,102,241,0.2)'
-                              : isDark
-                                ? '1px solid rgba(255,255,255,0.08)'
-                                : '1px solid rgba(15,23,42,0.08)',
+                            color: isStudent ? 'var(--msg-student-text)' : 'var(--msg-team-text)',
+                            background: isStudent ? 'var(--msg-student-bg)' : 'var(--msg-team-bg)',
+                            border: isStudent ? '1px solid var(--msg-student-bg)' : 'var(--msg-team-border)',
                             borderTopRightRadius: isStudent ? '2px' : '12px',
                             borderTopLeftRadius: isStudent ? '12px' : '2px',
-                            boxShadow: isDark
-                              ? '0 2px 8px rgba(0,0,0,0.15)'
-                              : '0 2px 8px rgba(99,102,241,0.03)',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
                           }}
                         >
                           {msg.body}
@@ -864,7 +823,7 @@ export default function StudentInboxPage() {
                 style={{
                   padding: '16px 24px',
                   borderTop: borderBottomStyle,
-                  background: isDark ? 'rgba(10,10,25,0.2)' : 'rgba(255,255,255,0.25)',
+                  background: chatHeaderBg,
                   zIndex: 2,
                 }}
               >
@@ -878,11 +837,11 @@ export default function StudentInboxPage() {
                     style={{
                       flex: 1,
                       height: '52px',
-                      background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.03)',
-                      border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(15,23,42,0.1)',
+                      background: 'var(--input-bg)',
+                      border: 'var(--input-border)',
                       borderRadius: '12px',
                       padding: '14px 16px',
-                      color: isDark ? 'white' : '#0f172a',
+                      color: 'var(--input-text)',
                       fontSize: '14px',
                       outline: 'none',
                       resize: 'none',
@@ -904,7 +863,7 @@ export default function StudentInboxPage() {
                       width: '52px',
                       height: '52px',
                       borderRadius: '12px',
-                      background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                      background: 'var(--btn-primary-bg)',
                       border: 'none',
                       color: 'white',
                       cursor: (sendMessageMutation.isPending || !replyText.trim()) ? 'not-allowed' : 'pointer',
@@ -914,8 +873,8 @@ export default function StudentInboxPage() {
                       transition: 'all 0.25s',
                       opacity: (sendMessageMutation.isPending || !replyText.trim()) ? 0.5 : 1,
                       boxShadow: sendHovered && replyText.trim()
-                        ? '0 6px 16px rgba(99,102,241,0.45)'
-                        : '0 4px 10px rgba(99,102,241,0.25)',
+                        ? 'var(--btn-primary-hover-shadow)'
+                        : 'none',
                       transform: sendHovered && replyText.trim() ? 'translateY(-1px)' : 'translateY(0)',
                     }}
                   >
@@ -953,7 +912,7 @@ export default function StudentInboxPage() {
           style={{
             position: 'fixed',
             inset: 0,
-            background: 'rgba(0,0,0,0.65)',
+            background: 'var(--overlay-bg)',
             backdropFilter: 'blur(16px)',
             WebkitBackdropFilter: 'blur(16px)',
             display: 'flex',
@@ -967,7 +926,7 @@ export default function StudentInboxPage() {
             style={{
               width: '90%',
               maxWidth: '440px',
-              background: isDark ? 'rgba(10, 10, 25, 0.7)' : 'rgba(255, 255, 255, 0.85)',
+              background: 'var(--card-bg)',
               border: cardBorder,
               borderRadius: '20px',
               padding: '32px',
@@ -1025,12 +984,12 @@ export default function StudentInboxPage() {
                     width: '100%',
                     height: '46px',
                     boxSizing: 'border-box',
-                    background: 'transparent',
-                    border: 'none',
-                    borderBottom: isDark ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(15,23,42,0.15)',
-                    padding: '0 0 0 4px',
-                    color: isDark ? 'white' : '#0f172a',
-                    fontSize: '15px',
+                    background: 'var(--input-bg)',
+                    border: 'var(--input-border)',
+                    borderRadius: '8px',
+                    padding: '0 12px',
+                    color: 'var(--input-text)',
+                    fontSize: '14px',
                     outline: 'none',
                     fontFamily: 'inherit',
                   }}
@@ -1065,12 +1024,12 @@ export default function StudentInboxPage() {
                     width: '100%',
                     height: '100px',
                     boxSizing: 'border-box',
-                    background: 'transparent',
-                    border: 'none',
-                    borderBottom: isDark ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(15,23,42,0.15)',
-                    padding: '8px 0 0 4px',
-                    color: isDark ? 'white' : '#0f172a',
-                    fontSize: '15px',
+                    background: 'var(--input-bg)',
+                    border: 'var(--input-border)',
+                    borderRadius: '8px',
+                    padding: '10px 12px',
+                    color: 'var(--input-text)',
+                    fontSize: '14px',
                     outline: 'none',
                     resize: 'none',
                     fontFamily: 'inherit',
@@ -1108,9 +1067,9 @@ export default function StudentInboxPage() {
                     height: '38px',
                     padding: '0 18px',
                     borderRadius: '8px',
-                    background: 'transparent',
-                    border: isDark ? '1px solid rgba(255,255,255,0.15)' : '1px solid rgba(15,23,42,0.15)',
-                    color: isDark ? 'white' : '#0f172a',
+                    background: 'var(--btn-secondary-bg)',
+                    border: 'var(--btn-secondary-border)',
+                    color: 'var(--btn-secondary-text)',
                     fontSize: '13px',
                     fontWeight: 500,
                     cursor: 'pointer',
@@ -1125,7 +1084,7 @@ export default function StudentInboxPage() {
                     height: '38px',
                     padding: '0 18px',
                     borderRadius: '8px',
-                    background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                    background: 'var(--btn-primary-bg)',
                     border: 'none',
                     color: 'white',
                     fontSize: '13px',

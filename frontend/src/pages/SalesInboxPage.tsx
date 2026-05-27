@@ -318,11 +318,11 @@ export default function SalesInboxPage() {
         style={{
           width: '100vw',
           height: '100vh',
-          background: '#060612',
+          background: 'var(--app-bg)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'white',
+          color: 'var(--text-primary)',
         }}
       >
         <Loader2 size={36} style={{ animation: 'spin 1s linear infinite', color: '#6366f1' }} />
@@ -335,18 +335,14 @@ export default function SalesInboxPage() {
   }
 
   // Visual Theme Mappings
-  const containerBg = isDark
-    ? 'linear-gradient(135deg, #060612 0%, #0d0d2b 100%)'
-    : 'linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%)'
+  const sidebarBg = 'var(--sidebar-bg)'
+  const borderRightStyle = 'var(--sidebar-border)'
+  const borderBottomStyle = 'var(--border-color)'
 
-  const sidebarBg = isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.015)'
-  const borderRightStyle = isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(15,23,42,0.08)'
-  const borderBottomStyle = isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(15,23,42,0.08)'
-
-  const headingColor = isDark ? 'white' : '#0f172a'
-  const textColor = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(15, 23, 42, 0.7)'
-  const previewTextColor = isDark ? 'rgba(255,255,255,0.45)' : 'rgba(15, 23, 42, 0.45)'
-  const chatHeaderBg = isDark ? 'rgba(10, 10, 25, 0.3)' : 'rgba(255, 255, 255, 0.5)'
+  const headingColor = 'var(--text-heading)'
+  const textColor = 'var(--text-primary)'
+  const previewTextColor = 'var(--text-muted)'
+  const chatHeaderBg = 'var(--chat-header-bg)'
 
   return (
     <div
@@ -356,14 +352,14 @@ export default function SalesInboxPage() {
         width: '100vw',
         height: '100vh',
         display: 'flex',
-        background: isDark ? '#060612' : '#f8fafc',
-        backgroundImage: containerBg,
+        background: 'var(--app-bg)',
+        backgroundImage: 'var(--app-bg)',
         overflow: 'hidden',
         margin: 0,
         padding: 0,
         fontFamily: "'Inter', -apple-system, sans-serif",
       }}
-      className="theme-transition"
+      className={`theme-transition ${theme}`}
     >
       <style>{`
         .theme-transition, .theme-transition * {
@@ -377,14 +373,14 @@ export default function SalesInboxPage() {
           background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-          background: ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'};
+          background: var(--scrollbar-thumb);
           border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
-          background: ${isDark ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.2)'};
+          background: var(--scrollbar-thumb-hover);
         }
         input::placeholder, textarea::placeholder {
-          color: ${isDark ? 'rgba(255,255,255,0.25)' : 'rgba(15,23,42,0.4)'} !important;
+          color: var(--input-placeholder) !important;
         }
       `}</style>
 
@@ -487,21 +483,13 @@ export default function SalesInboxPage() {
                   cursor: 'pointer',
                   transition: 'all 0.2s',
                   background: isTabActive
-                    ? isDark
-                      ? 'rgba(99,102,241,0.25)'
-                      : 'rgba(99,102,241,0.12)'
+                    ? 'var(--item-selected-bg)'
                     : 'transparent',
                   color: isTabActive
-                    ? isDark
-                      ? '#a5b4fc'
-                      : '#4f46e5'
-                    : isDark
-                      ? 'rgba(255,255,255,0.4)'
-                      : 'rgba(15,23,42,0.5)',
+                    ? 'var(--tab-active-text)'
+                    : 'var(--text-muted)',
                   borderBottom: isTabActive
-                    ? isDark
-                      ? '1px solid #6366f1'
-                      : '1px solid #4f46e5'
+                    ? '1px solid var(--tab-active-text)'
                     : '1px solid transparent',
                 }}
               >
@@ -520,9 +508,9 @@ export default function SalesInboxPage() {
                 style={{
                   padding: '16px',
                   borderRadius: '10px',
-                  background: isDark ? 'rgba(255,255,255,0.01)' : 'rgba(0,0,0,0.01)',
+                  background: 'var(--item-hover-bg)',
                   marginBottom: '8px',
-                  border: isDark ? '1px solid rgba(255,255,255,0.03)' : '1px solid rgba(0,0,0,0.03)',
+                  border: '1px solid var(--border-color)',
                   opacity: 0.5,
                 }}
               >
@@ -530,7 +518,7 @@ export default function SalesInboxPage() {
                   style={{
                     height: '14px',
                     width: '60%',
-                    background: isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+                    background: 'var(--tabs-bg)',
                     borderRadius: '4px',
                     marginBottom: '8px',
                   }}
@@ -539,7 +527,7 @@ export default function SalesInboxPage() {
                   style={{
                     height: '11px',
                     width: '80%',
-                    background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
+                    background: 'var(--tabs-bg)',
                     borderRadius: '4px',
                   }}
                 />
@@ -555,7 +543,7 @@ export default function SalesInboxPage() {
               style={{
                 padding: '40px 16px',
                 textAlign: 'center',
-                color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(15,23,42,0.4)',
+                color: 'var(--text-muted)',
                 fontSize: '13px',
               }}
             >
@@ -564,14 +552,14 @@ export default function SalesInboxPage() {
           ) : (
             threads.map((thread) => {
               const isSelected = activeThreadId === thread.id
-              let badgeBg = 'rgba(156,163,175,0.15)'
-              let badgeColor = '#9ca3af'
+              let badgeBg = 'var(--badge-closed-bg)'
+              let badgeColor = 'var(--badge-closed-text)'
               if (thread.status === 'open') {
-                badgeBg = isDark ? 'rgba(34,197,94,0.15)' : 'rgba(34,197,94,0.12)'
-                badgeColor = isDark ? '#86efac' : '#166534'
+                badgeBg = 'var(--badge-open-bg)'
+                badgeColor = 'var(--badge-open-text)'
               } else if (thread.status === 'pending') {
-                badgeBg = isDark ? 'rgba(234,179,8,0.15)' : 'rgba(234,179,8,0.12)'
-                badgeColor = isDark ? '#fef08a' : '#854d0e'
+                badgeBg = 'var(--badge-pending-bg)'
+                badgeColor = 'var(--badge-pending-text)'
               }
 
               const studentName = thread.student?.full_name || 'Anonymous Student'
@@ -580,22 +568,19 @@ export default function SalesInboxPage() {
                 <div
                   key={thread.id}
                   onClick={() => setActiveThreadId(thread.id)}
+                  className="thread-item"
                   style={{
                     padding: '16px',
                     borderRadius: '10px',
                     cursor: 'pointer',
                     transition: 'all 0.2s',
                     background: isSelected
-                      ? isDark
-                        ? 'rgba(99,102,241,0.08)'
-                        : 'rgba(99,102,241,0.05)'
+                      ? 'var(--item-selected-bg)'
                       : 'transparent',
-                    borderLeft: isSelected ? '3px solid #6366f1' : '3px solid transparent',
+                    borderLeft: isSelected ? '3px solid var(--tab-active-text)' : '3px solid transparent',
                     marginBottom: '8px',
                     boxShadow: isSelected
-                      ? isDark
-                        ? '0 4px 12px rgba(0,0,0,0.15)'
-                        : '0 4px 12px rgba(99,102,241,0.04)'
+                      ? 'var(--card-shadow)'
                       : 'none',
                   }}
                 >
@@ -768,24 +753,16 @@ export default function SalesInboxPage() {
                         textTransform: 'uppercase',
                         background:
                           activeThread.status === 'open'
-                            ? isDark
-                              ? 'rgba(34,197,94,0.15)'
-                              : 'rgba(34,197,94,0.12)'
+                            ? 'var(--badge-open-bg)'
                             : activeThread.status === 'pending'
-                              ? isDark
-                                ? 'rgba(234,179,8,0.15)'
-                                : 'rgba(234,179,8,0.12)'
-                              : 'rgba(156,163,175,0.15)',
+                              ? 'var(--badge-pending-bg)'
+                              : 'var(--badge-closed-bg)',
                         color:
                           activeThread.status === 'open'
-                            ? isDark
-                              ? '#86efac'
-                              : '#166534'
+                            ? 'var(--badge-open-text)'
                             : activeThread.status === 'pending'
-                              ? isDark
-                                ? '#fef08a'
-                                : '#854d0e'
-                              : '#9ca3af',
+                              ? 'var(--badge-pending-text)'
+                              : 'var(--badge-closed-text)',
                       }}
                     >
                       {activeThread.status}
@@ -838,25 +815,25 @@ export default function SalesInboxPage() {
                         })
                       }
                       style={{
-                        background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.03)',
-                        border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(15,23,42,0.1)',
+                        background: 'var(--input-bg)',
+                        border: 'var(--input-border)',
                         borderRadius: '8px',
-                        color: isDark ? 'white' : '#0f172a',
+                        color: 'var(--input-text)',
                         padding: '6px 24px 6px 12px',
                         fontSize: '12px',
                         fontWeight: 600,
                         cursor: 'pointer',
                         outline: 'none',
                         appearance: 'none',
-                        backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='${isDark ? 'white' : 'black'}' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
+                        backgroundImage: 'var(--select-arrow)',
                         backgroundRepeat: 'no-repeat',
                         backgroundPosition: 'right 8px center',
                         backgroundSize: '12px',
                       }}
                     >
-                      <option value="open" style={{ background: isDark ? '#1e1b4b' : 'white' }}>Open</option>
-                      <option value="pending" style={{ background: isDark ? '#1e1b4b' : 'white' }}>Pending</option>
-                      <option value="closed" style={{ background: isDark ? '#1e1b4b' : 'white' }}>Closed</option>
+                      <option value="open" style={{ background: 'var(--input-bg)', color: 'var(--input-text)' }}>Open</option>
+                      <option value="pending" style={{ background: 'var(--input-bg)', color: 'var(--input-text)' }}>Pending</option>
+                      <option value="closed" style={{ background: 'var(--input-bg)', color: 'var(--input-text)' }}>Closed</option>
                     </select>
                   )}
 
@@ -870,13 +847,11 @@ export default function SalesInboxPage() {
                       cursor: 'pointer',
                       padding: '6px',
                       borderRadius: '8px',
-                      color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(15,23,42,0.5)',
+                      color: 'var(--text-muted)',
                       display: 'flex',
                       alignItems: 'center',
                       backgroundColor: closeHovered
-                        ? isDark
-                          ? 'rgba(255,255,255,0.05)'
-                          : 'rgba(0,0,0,0.05)'
+                        ? 'var(--item-hover-bg)'
                         : 'transparent',
                       transition: 'all 0.2s',
                     }}
@@ -945,26 +920,12 @@ export default function SalesInboxPage() {
                             fontSize: '14px',
                             lineHeight: '1.45',
                             wordBreak: 'break-word',
-                            color: isDark ? 'white' : '#0f172a',
-                            background: isTeam
-                              ? isDark
-                                ? 'rgba(99,102,241,0.2)'
-                                : 'rgba(99,102,241,0.1)'
-                              : isDark
-                                ? 'rgba(255,255,255,0.05)'
-                                : 'rgba(15,23,42,0.05)',
-                            border: isTeam
-                              ? isDark
-                                ? '1px solid rgba(99,102,241,0.3)'
-                                : '1px solid rgba(99,102,241,0.2)'
-                              : isDark
-                                ? '1px solid rgba(255,255,255,0.08)'
-                                : '1px solid rgba(15,23,42,0.08)',
+                            color: isTeam ? 'var(--msg-team-text)' : 'var(--msg-student-text)',
+                            background: isTeam ? 'var(--msg-team-bg)' : 'var(--msg-student-bg)',
+                            border: isTeam ? 'var(--msg-team-border)' : '1px solid var(--msg-student-bg)',
                             borderTopRightRadius: isTeam ? '2px' : '12px',
                             borderTopLeftRadius: isTeam ? '12px' : '2px',
-                            boxShadow: isDark
-                              ? '0 2px 8px rgba(0,0,0,0.15)'
-                              : '0 2px 8px rgba(99,102,241,0.03)',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.03)',
                           }}
                         >
                           {msg.body}
@@ -1008,11 +969,11 @@ export default function SalesInboxPage() {
                       style={{
                         flex: 1,
                         height: '52px',
-                        background: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.03)',
-                        border: isDark ? '1px solid rgba(255,255,255,0.1)' : '1px solid rgba(15,23,42,0.1)',
+                        background: 'var(--input-bg)',
+                        border: 'var(--input-border)',
                         borderRadius: '12px',
                         padding: '14px 16px',
-                        color: isDark ? 'white' : '#0f172a',
+                        color: 'var(--input-text)',
                         fontSize: '14px',
                         outline: 'none',
                         resize: 'none',

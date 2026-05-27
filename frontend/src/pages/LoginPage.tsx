@@ -47,7 +47,6 @@ function GlassInput({
   disabled,
   icon,
   rightSlot,
-  isDark,
 }: GlassInputProps) {
   const [focused, setFocused] = useState(false)
 
@@ -61,8 +60,8 @@ function GlassInput({
           top: '50%',
           transform: 'translateY(-50%)',
           color: focused
-            ? isDark ? 'rgba(99,102,241,0.85)' : 'rgba(79,70,229,0.85)'
-            : isDark ? 'rgba(255,255,255,0.3)' : 'rgba(15,23,42,0.4)',
+            ? 'var(--input-focus-border)'
+            : 'var(--text-muted)',
           display: 'flex',
           alignItems: 'center',
           pointerEvents: 'none',
@@ -89,22 +88,16 @@ function GlassInput({
           background: 'transparent',
           border: 'none',
           borderBottom: focused
-            ? isDark
-              ? '1px solid rgba(99,102,241,0.85)'
-              : '1px solid rgba(79,70,229,0.85)'
-            : isDark
-              ? '1px solid rgba(255,255,255,0.15)'
-              : '1px solid rgba(15,23,42,0.15)',
+            ? '1px solid var(--input-focus-border)'
+            : '1px solid var(--input-border)',
           padding: rightSlot ? '0 32px 0 28px' : '0 0 0 28px',
-          color: isDark ? 'white' : '#0f172a',
+          color: 'var(--input-text)',
           fontSize: '15px',
           outline: 'none',
           transition: 'all 0.3s ease',
           fontFamily: 'inherit',
           boxShadow: focused
-            ? isDark
-              ? '0 1px 0 rgba(99,102,241,0.85)'
-              : '0 1px 0 rgba(79,70,229,0.85)'
+            ? '0 1px 0 var(--input-focus-border)'
             : 'none',
         }}
       />
@@ -260,7 +253,7 @@ export default function LoginPage() {
           key={i}
           d={`M ${-50 + offset} 450 C 100 ${320 - offset}, 220 ${100 + offset}, 450 ${50 + offset}`}
           fill="none"
-          stroke={isDark ? 'rgba(99, 102, 241, 0.18)' : 'rgba(99, 102, 241, 0.12)'}
+          stroke="var(--app-wireframe-stroke)"
           strokeWidth="0.75"
         />
       )
@@ -278,7 +271,7 @@ export default function LoginPage() {
           cy="300"
           r={r}
           fill="none"
-          stroke={isDark ? 'rgba(6, 182, 212, 0.16)' : 'rgba(6, 182, 212, 0.11)'}
+          stroke="var(--app-wireframe-stroke)"
           strokeWidth="0.75"
         />
       )
@@ -295,7 +288,7 @@ export default function LoginPage() {
           y1="300"
           x2={x2}
           y2={y2}
-          stroke={isDark ? 'rgba(6, 182, 212, 0.12)' : 'rgba(6, 182, 212, 0.08)'}
+          stroke="var(--app-wireframe-stroke)"
           strokeWidth="0.75"
         />
       )
@@ -303,38 +296,6 @@ export default function LoginPage() {
 
     return [...circles, ...lines]
   }
-
-  // Adaptive Styles
-  const pageContainerBg = isDark
-    ? 'linear-gradient(135deg, #060612 0%, #0d0d2b 40%, #0a0a1a 100%)'
-    : 'linear-gradient(135deg, #f8fafc 0%, #eef2ff 40%, #f1f5f9 100%)'
-
-  const gridOverlayImage = isDark
-    ? 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)'
-    : 'linear-gradient(rgba(15, 23, 42, 0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(15, 23, 42, 0.018) 1px, transparent 1px)'
-
-  const cardBg = isDark ? 'rgba(10, 10, 25, 0.45)' : 'rgba(255, 255, 255, 0.65)'
-  const cardBorder = isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(99,102,241,0.12)'
-  const cardShadow = isDark
-    ? '0 0 0 1px rgba(255,255,255,0.05), 0 32px 64px rgba(0,0,0,0.6), 0 0 80px rgba(99,102,241,0.08)'
-    : '0 0 0 1px rgba(99,102,241,0.05), 0 32px 64px rgba(99,102,241,0.07), 0 0 80px rgba(99,102,241,0.04)'
-
-  const labelColor = isDark ? 'rgba(255,255,255,0.4)' : 'rgba(15, 23, 42, 0.55)'
-
-  const dividerBg = isDark
-    ? 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)'
-    : 'linear-gradient(90deg, transparent, rgba(15, 23, 42, 0.08), transparent)'
-
-  const tabsBg = isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0, 0, 0, 0.02)'
-  const tabsBorder = isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(15, 23, 42, 0.08)'
-
-  const btnShadow = isDark
-    ? '0 8px 32px rgba(99,102,241,0.3), inset 0 1px 0 rgba(255,255,255,0.15)'
-    : '0 8px 32px rgba(99,102,241,0.15), inset 0 1px 0 rgba(255,255,255,0.2)'
-
-  const btnHoverShadow = isDark
-    ? '0 12px 40px rgba(99,102,241,0.45)'
-    : '0 12px 40px rgba(99,102,241,0.25)'
 
   return (
     <div className="theme-transition">
@@ -356,26 +317,54 @@ export default function LoginPage() {
         .theme-transition, .theme-transition * {
           transition: background 0.3s ease, background-color 0.3s ease, border 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, stroke 0.3s ease, fill 0.3s ease;
         }
-        .dark-theme input::placeholder { color: rgba(255, 255, 255, 0.25) !important; }
-        .light-theme input::placeholder { color: rgba(15, 23, 42, 0.4) !important; }
-        .dark-theme input { caret-color: #6366f1; }
-        .light-theme input { caret-color: #4f46e5; }
+        input::placeholder, textarea::placeholder { color: var(--input-placeholder) !important; }
+        input, textarea { caret-color: var(--input-focus-border); }
+        
+        :root {
+          --card-padding: 48px 40px;
+        }
+        @media (max-width: 480px) {
+          :root {
+            --card-padding: 32px 20px;
+          }
+          .role-buttons-container {
+            flex-direction: column !important;
+            gap: 8px !important;
+          }
+          .role-buttons-container button {
+            width: 100% !important;
+            flex-direction: row !important;
+            padding: 12px 16px !important;
+            justify-content: flex-start !important;
+            gap: 16px !important;
+          }
+          .role-buttons-container button div {
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 8px !important;
+          }
+          .role-buttons-container button div svg {
+            width: 18px !important;
+            height: 18px !important;
+          }
+        }
       `}</style>
 
       {/* ── Full Page Container ── */}
       <div
-        className={isDark ? 'dark-theme' : 'light-theme'}
+        className={theme}
         style={{
-          position: 'fixed',
-          inset: 0,
           width: '100vw',
-          height: '100vh',
-          background: pageContainerBg,
+          minHeight: '100vh',
+          background: 'var(--app-bg)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           fontFamily: "'Inter', -apple-system, sans-serif",
-          overflow: 'hidden',
+          overflowY: 'auto',
+          margin: 0,
+          padding: '40px 16px',
+          boxSizing: 'border-box',
         }}
       >
         {/* ── Grid Pattern Overlay ── */}
@@ -383,7 +372,7 @@ export default function LoginPage() {
           style={{
             position: 'fixed',
             inset: 0,
-            backgroundImage: gridOverlayImage,
+            backgroundImage: 'var(--app-grid-color)',
             backgroundSize: '40px 40px',
             pointerEvents: 'none',
             zIndex: 0,
@@ -397,12 +386,12 @@ export default function LoginPage() {
           onMouseEnter={() => setToggleHovered(true)}
           onMouseLeave={() => setToggleHovered(false)}
           style={{
-            position: 'absolute',
+            position: 'fixed',
             top: '24px',
             right: '24px',
             zIndex: 20,
-            background: isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.7)',
-            border: isDark ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(15, 23, 42, 0.08)',
+            background: 'var(--btn-secondary-bg)',
+            border: 'var(--btn-secondary-border)',
             borderRadius: '20px',
             padding: '8px 12px',
             cursor: 'pointer',
@@ -413,8 +402,8 @@ export default function LoginPage() {
             gap: '6px',
             fontSize: '12px',
             fontWeight: '500',
-            color: isDark ? 'rgba(255, 255, 255, 0.8)' : '#0f172a',
-            boxShadow: isDark ? '0 4px 12px rgba(0,0,0,0.1)' : '0 4px 12px rgba(0,0,0,0.05)',
+            color: 'var(--btn-secondary-text)',
+            boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
             transform: toggleHovered ? 'scale(1.03)' : 'scale(1)',
           }}
         >
@@ -449,21 +438,21 @@ export default function LoginPage() {
         >
           <defs>
             <radialGradient id="sphereGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor={isDark ? 'rgba(6, 182, 212, 0.16)' : 'rgba(6, 182, 212, 0.11)'} />
+              <stop offset="0%" stopColor="var(--app-wireframe-glow)" />
               <stop offset="100%" stopColor="transparent" />
             </radialGradient>
           </defs>
           <circle cx="200" cy="200" r="200" fill="url(#sphereGlow)" />
           {/* Latitude circles */}
-          <ellipse cx="200" cy="200" rx="190" ry="160" fill="none" stroke={isDark ? 'rgba(6, 182, 212, 0.22)' : 'rgba(6, 182, 212, 0.14)'} strokeWidth="0.5" />
-          <ellipse cx="200" cy="200" rx="190" ry="120" fill="none" stroke={isDark ? 'rgba(6, 182, 212, 0.18)' : 'rgba(6, 182, 212, 0.11)'} strokeWidth="0.5" />
-          <ellipse cx="200" cy="200" rx="190" ry="70" fill="none" stroke={isDark ? 'rgba(6, 182, 212, 0.14)' : 'rgba(6, 182, 212, 0.08)'} strokeWidth="0.5" />
-          <line x1="10" y1="200" x2="390" y2="200" stroke={isDark ? 'rgba(6, 182, 212, 0.22)' : 'rgba(6, 182, 212, 0.14)'} strokeWidth="0.5" />
+          <ellipse cx="200" cy="200" rx="190" ry="160" fill="none" stroke="var(--app-wireframe-stroke)" strokeWidth="0.5" />
+          <ellipse cx="200" cy="200" rx="190" ry="120" fill="none" stroke="var(--app-wireframe-stroke)" strokeWidth="0.5" />
+          <ellipse cx="200" cy="200" rx="190" ry="70" fill="none" stroke="var(--app-wireframe-stroke)" strokeWidth="0.5" />
+          <line x1="10" y1="200" x2="390" y2="200" stroke="var(--app-wireframe-stroke)" strokeWidth="0.5" />
           {/* Longitude ellipses */}
-          <ellipse cx="200" cy="200" rx="160" ry="190" fill="none" stroke={isDark ? 'rgba(6, 182, 212, 0.22)' : 'rgba(6, 182, 212, 0.14)'} strokeWidth="0.5" />
-          <ellipse cx="200" cy="200" rx="120" ry="190" fill="none" stroke={isDark ? 'rgba(6, 182, 212, 0.18)' : 'rgba(6, 182, 212, 0.11)'} strokeWidth="0.5" />
-          <ellipse cx="200" cy="200" rx="70" ry="190" fill="none" stroke={isDark ? 'rgba(6, 182, 212, 0.14)' : 'rgba(6, 182, 212, 0.08)'} strokeWidth="0.5" />
-          <line x1="200" y1="10" x2="200" y2="390" stroke={isDark ? 'rgba(6, 182, 212, 0.22)' : 'rgba(6, 182, 212, 0.14)'} strokeWidth="0.5" />
+          <ellipse cx="200" cy="200" rx="160" ry="190" fill="none" stroke="var(--app-wireframe-stroke)" strokeWidth="0.5" />
+          <ellipse cx="200" cy="200" rx="120" ry="190" fill="none" stroke="var(--app-wireframe-stroke)" strokeWidth="0.5" />
+          <ellipse cx="200" cy="200" rx="70" ry="190" fill="none" stroke="var(--app-wireframe-stroke)" strokeWidth="0.5" />
+          <line x1="200" y1="10" x2="200" y2="390" stroke="var(--app-wireframe-stroke)" strokeWidth="0.5" />
         </svg>
 
         {/* Bottom-Left Wave Mesh */}
@@ -482,7 +471,7 @@ export default function LoginPage() {
         >
           <defs>
             <radialGradient id="waveGlow" cx="30%" cy="70%" r="50%">
-              <stop offset="0%" stopColor={isDark ? 'rgba(99, 102, 241, 0.15)' : 'rgba(99, 102, 241, 0.08)'} />
+              <stop offset="0%" stopColor="var(--app-wireframe-glow)" />
               <stop offset="100%" stopColor="transparent" />
             </radialGradient>
           </defs>
@@ -506,7 +495,7 @@ export default function LoginPage() {
         >
           <defs>
             <radialGradient id="torusGlow" cx="70%" cy="70%" r="50%">
-              <stop offset="0%" stopColor={isDark ? 'rgba(139, 92, 246, 0.12)' : 'rgba(139, 92, 246, 0.07)'} />
+              <stop offset="0%" stopColor="var(--app-wireframe-glow)" />
               <stop offset="100%" stopColor="transparent" />
             </radialGradient>
           </defs>
@@ -522,13 +511,13 @@ export default function LoginPage() {
             width: '100%',
             maxWidth: '420px',
             margin: '16px',
-            background: cardBg,
+            background: 'var(--card-bg)',
             backdropFilter: 'blur(30px)',
             WebkitBackdropFilter: 'blur(30px)',
-            border: cardBorder,
+            border: 'var(--card-border)',
             borderRadius: '24px',
-            padding: '48px 40px',
-            boxShadow: cardShadow,
+            padding: 'var(--card-padding)',
+            boxShadow: 'var(--card-shadow)',
             animation: 'fadeInUp 0.5s ease-out',
           }}
         >
@@ -541,12 +530,8 @@ export default function LoginPage() {
                 margin: '0 auto',
                 borderRadius: '18px',
                 padding: '1px',
-                background: isDark
-                  ? 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.03) 100%)'
-                  : 'linear-gradient(135deg, rgba(99,102,241,0.2) 0%, rgba(99,102,241,0.05) 100%)',
-                boxShadow: isDark
-                  ? '0 0 0 1px rgba(255,255,255,0.05), 0 8px 24px rgba(0,0,0,0.2)'
-                  : '0 0 0 1px rgba(99,102,241,0.05), 0 8px 24px rgba(99,102,241,0.05)',
+                background: 'var(--card-border)',
+                boxShadow: 'var(--card-shadow)',
               }}
             >
               <div
@@ -554,11 +539,11 @@ export default function LoginPage() {
                   width: '100%',
                   height: '100%',
                   borderRadius: '17px',
-                  background: isDark ? 'rgba(13, 13, 35, 0.65)' : 'rgba(255, 255, 255, 0.9)',
+                  background: 'var(--card-bg)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  border: isDark ? '1px solid rgba(99, 102, 241, 0.25)' : '1px solid rgba(99, 102, 241, 0.2)',
+                  border: 'var(--card-border)',
                 }}
               >
                 <MessageSquare size={26} color="#6366f1" style={{ fill: 'rgba(99,102,241,0.15)' }} />
@@ -569,7 +554,7 @@ export default function LoginPage() {
               style={{
                 fontSize: '26px',
                 fontWeight: 700,
-                color: isDark ? 'white' : '#0f172a',
+                color: 'var(--text-heading)',
                 textAlign: 'center',
                 letterSpacing: '-0.5px',
                 marginTop: '18px',
@@ -582,7 +567,7 @@ export default function LoginPage() {
             <p
               style={{
                 fontSize: '13px',
-                color: isDark ? 'rgba(255,255,255,0.35)' : 'rgba(15, 23, 42, 0.5)',
+                color: 'var(--text-muted)',
                 textAlign: 'center',
                 marginTop: '5px',
                 marginBottom: 0,
@@ -598,7 +583,7 @@ export default function LoginPage() {
             style={{
               height: '1px',
               margin: '28px 0 24px 0',
-              background: dividerBg,
+              background: 'var(--divider-bg)',
             }}
           />
 
@@ -606,10 +591,10 @@ export default function LoginPage() {
           <div
             style={{
               display: 'flex',
-              background: tabsBg,
+              background: 'var(--tabs-bg)',
               borderRadius: '24px',
               padding: '3px',
-              border: tabsBorder,
+              border: 'var(--tabs-border)',
               marginBottom: '28px',
             }}
           >
@@ -636,16 +621,14 @@ export default function LoginPage() {
                     fontFamily: 'inherit',
                     ...(isActive
                       ? {
-                          background: isDark
-                            ? 'linear-gradient(135deg, rgba(99,102,241,0.5), rgba(139,92,246,0.35))'
-                            : 'linear-gradient(135deg, rgba(99,102,241,0.18), rgba(139,92,246,0.13))',
-                          color: isDark ? 'white' : '#4f46e5',
-                          boxShadow: isDark ? '0 4px 15px rgba(99,102,241,0.35)' : '0 4px 12px rgba(99,102,241,0.12)',
-                          border: isDark ? '1px solid rgba(99,102,241,0.45)' : '1px solid rgba(99,102,241,0.25)',
+                          background: 'var(--tab-active-bg)',
+                          color: 'var(--tab-active-text)',
+                          boxShadow: 'var(--tab-active-shadow)',
+                          border: 'var(--tab-active-border)',
                         }
                       : {
                           background: 'transparent',
-                          color: isDark ? 'rgba(255,255,255,0.4)' : 'rgba(15, 23, 42, 0.5)',
+                          color: 'var(--text-muted)',
                           border: '1px solid transparent',
                         }),
                   }}
@@ -707,7 +690,7 @@ export default function LoginPage() {
                   style={{
                     fontSize: '11px',
                     fontWeight: 600,
-                    color: labelColor,
+                    color: 'var(--label-color)',
                     letterSpacing: '1px',
                     textTransform: 'uppercase',
                     marginBottom: '6px',
@@ -717,7 +700,7 @@ export default function LoginPage() {
                 >
                   Role
                 </label>
-                <div style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
+                <div className="role-buttons-container" style={{ display: 'flex', gap: '10px', marginTop: '8px' }}>
                   {/* Student Button */}
                   <button
                     type="button"
@@ -727,15 +710,15 @@ export default function LoginPage() {
                       flex: 1,
                       padding: '16px 8px',
                       background: selectedRole === 'student'
-                        ? (isDark ? 'rgba(99,102,241,0.12)' : 'rgba(99,102,241,0.08)')
-                        : (isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.02)'),
+                        ? 'var(--item-selected-bg)'
+                        : 'transparent',
                       border: selectedRole === 'student'
-                        ? '1px solid #6366f1'
-                        : (isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(15,23,42,0.08)'),
+                        ? '1px solid var(--tab-active-text)'
+                        : '1px solid var(--border-color)',
                       borderRadius: '14px',
                       color: selectedRole === 'student'
-                        ? (isDark ? '#818cf8' : '#4f46e5')
-                        : (isDark ? 'rgba(255,255,255,0.35)' : 'rgba(15,23,42,0.45)'),
+                        ? 'var(--tab-active-text)'
+                        : 'var(--text-muted)',
                       fontSize: '11px',
                       fontWeight: '600',
                       letterSpacing: '1px',
@@ -748,9 +731,6 @@ export default function LoginPage() {
                       gap: '10px',
                       fontFamily: 'inherit',
                       outline: 'none',
-                      boxShadow: selectedRole === 'student'
-                        ? (isDark ? '0 0 20px rgba(99,102,241,0.15), inset 0 1px 0 rgba(255,255,255,0.05)' : '0 0 15px rgba(99,102,241,0.08)')
-                        : 'none',
                     }}
                   >
                     <div
@@ -759,17 +739,17 @@ export default function LoginPage() {
                         height: '44px',
                         borderRadius: '12px',
                         background: selectedRole === 'student'
-                          ? (isDark ? 'rgba(99,102,241,0.15)' : 'rgba(99,102,241,0.1)')
-                          : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.03)'),
+                          ? 'var(--app-wireframe-glow)'
+                          : 'var(--tabs-bg)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         border: selectedRole === 'student'
-                          ? (isDark ? '1px solid rgba(99,102,241,0.3)' : '1px solid rgba(99,102,241,0.2)')
-                          : (isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(15,23,42,0.06)'),
+                          ? '1px solid var(--tab-active-text)'
+                          : '1px solid var(--border-color)',
                       }}
                     >
-                      <GraduationCap size={22} color={selectedRole === 'student' ? (isDark ? '#818cf8' : '#4f46e5') : (isDark ? 'rgba(255,255,255,0.5)' : 'rgba(15, 23, 42, 0.4)')} />
+                      <GraduationCap size={22} color={selectedRole === 'student' ? 'var(--tab-active-text)' : 'var(--text-muted)'} />
                     </div>
                     <span>STUDENT</span>
                   </button>
@@ -783,15 +763,15 @@ export default function LoginPage() {
                       flex: 1,
                       padding: '16px 8px',
                       background: selectedRole === 'sales'
-                        ? (isDark ? 'rgba(99,102,241,0.12)' : 'rgba(99,102,241,0.08)')
-                        : (isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.02)'),
+                        ? 'var(--item-selected-bg)'
+                        : 'transparent',
                       border: selectedRole === 'sales'
-                        ? '1px solid #6366f1'
-                        : (isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(15,23,42,0.08)'),
+                        ? '1px solid var(--tab-active-text)'
+                        : '1px solid var(--border-color)',
                       borderRadius: '14px',
                       color: selectedRole === 'sales'
-                        ? (isDark ? '#818cf8' : '#4f46e5')
-                        : (isDark ? 'rgba(255,255,255,0.35)' : 'rgba(15,23,42,0.45)'),
+                        ? 'var(--tab-active-text)'
+                        : 'var(--text-muted)',
                       fontSize: '11px',
                       fontWeight: '600',
                       letterSpacing: '1px',
@@ -804,9 +784,6 @@ export default function LoginPage() {
                       gap: '10px',
                       fontFamily: 'inherit',
                       outline: 'none',
-                      boxShadow: selectedRole === 'sales'
-                        ? (isDark ? '0 0 20px rgba(99,102,241,0.15), inset 0 1px 0 rgba(255,255,255,0.05)' : '0 0 15px rgba(99,102,241,0.08)')
-                        : 'none',
                     }}
                   >
                     <div
@@ -815,17 +792,17 @@ export default function LoginPage() {
                         height: '44px',
                         borderRadius: '12px',
                         background: selectedRole === 'sales'
-                          ? (isDark ? 'rgba(99,102,241,0.15)' : 'rgba(99,102,241,0.1)')
-                          : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.03)'),
+                          ? 'var(--app-wireframe-glow)'
+                          : 'var(--tabs-bg)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         border: selectedRole === 'sales'
-                          ? (isDark ? '1px solid rgba(99,102,241,0.3)' : '1px solid rgba(99,102,241,0.2)')
-                          : (isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(15,23,42,0.06)'),
+                          ? '1px solid var(--tab-active-text)'
+                          : '1px solid var(--border-color)',
                       }}
                     >
-                      <Headphones size={22} color={selectedRole === 'sales' ? (isDark ? '#818cf8' : '#4f46e5') : (isDark ? 'rgba(255,255,255,0.5)' : 'rgba(15, 23, 42, 0.4)')} />
+                      <Headphones size={22} color={selectedRole === 'sales' ? 'var(--tab-active-text)' : 'var(--text-muted)'} />
                     </div>
                     <span>SALES</span>
                   </button>
@@ -839,15 +816,15 @@ export default function LoginPage() {
                       flex: 1,
                       padding: '16px 8px',
                       background: selectedRole === 'manager'
-                        ? (isDark ? 'rgba(99,102,241,0.12)' : 'rgba(99,102,241,0.08)')
-                        : (isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.02)'),
+                        ? 'var(--item-selected-bg)'
+                        : 'transparent',
                       border: selectedRole === 'manager'
-                        ? '1px solid #6366f1'
-                        : (isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(15,23,42,0.08)'),
+                        ? '1px solid var(--tab-active-text)'
+                        : '1px solid var(--border-color)',
                       borderRadius: '14px',
                       color: selectedRole === 'manager'
-                        ? (isDark ? '#818cf8' : '#4f46e5')
-                        : (isDark ? 'rgba(255,255,255,0.35)' : 'rgba(15,23,42,0.45)'),
+                        ? 'var(--tab-active-text)'
+                        : 'var(--text-muted)',
                       fontSize: '11px',
                       fontWeight: '600',
                       letterSpacing: '1px',
@@ -860,9 +837,6 @@ export default function LoginPage() {
                       gap: '10px',
                       fontFamily: 'inherit',
                       outline: 'none',
-                      boxShadow: selectedRole === 'manager'
-                        ? (isDark ? '0 0 20px rgba(99,102,241,0.15), inset 0 1px 0 rgba(255,255,255,0.05)' : '0 0 15px rgba(99,102,241,0.08)')
-                        : 'none',
                     }}
                   >
                     <div
@@ -871,17 +845,17 @@ export default function LoginPage() {
                         height: '44px',
                         borderRadius: '12px',
                         background: selectedRole === 'manager'
-                          ? (isDark ? 'rgba(99,102,241,0.15)' : 'rgba(99,102,241,0.1)')
-                          : (isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.03)'),
+                          ? 'var(--app-wireframe-glow)'
+                          : 'var(--tabs-bg)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         border: selectedRole === 'manager'
-                          ? (isDark ? '1px solid rgba(99,102,241,0.3)' : '1px solid rgba(99,102,241,0.2)')
-                          : (isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(15,23,42,0.06)'),
+                          ? '1px solid var(--tab-active-text)'
+                          : '1px solid var(--border-color)',
                       }}
                     >
-                      <ShieldCheck size={22} color={selectedRole === 'manager' ? (isDark ? '#818cf8' : '#4f46e5') : (isDark ? 'rgba(255,255,255,0.5)' : 'rgba(15, 23, 42, 0.4)')} />
+                      <ShieldCheck size={22} color={selectedRole === 'manager' ? 'var(--tab-active-text)' : 'var(--text-muted)'} />
                     </div>
                     <span>MANAGER</span>
                   </button>
@@ -897,7 +871,7 @@ export default function LoginPage() {
                   style={{
                     fontSize: '11px',
                     fontWeight: 600,
-                    color: labelColor,
+                    color: 'var(--label-color)',
                     letterSpacing: '1px',
                     textTransform: 'uppercase',
                     marginBottom: '6px',
@@ -927,7 +901,7 @@ export default function LoginPage() {
                 style={{
                   fontSize: '11px',
                   fontWeight: 600,
-                  color: labelColor,
+                  color: 'var(--label-color)',
                   letterSpacing: '1px',
                   textTransform: 'uppercase',
                   marginBottom: '6px',
@@ -964,7 +938,7 @@ export default function LoginPage() {
                   style={{
                     fontSize: '11px',
                     fontWeight: 600,
-                    color: labelColor,
+                    color: 'var(--label-color)',
                     letterSpacing: '1px',
                     textTransform: 'uppercase',
                     display: 'block',
@@ -983,8 +957,8 @@ export default function LoginPage() {
                     style={{
                       fontSize: '12px',
                       color: forgotHovered
-                        ? isDark ? '#818cf8' : '#4f46e5'
-                        : isDark ? 'rgba(99,102,241,0.7)' : 'rgba(79,70,229,0.75)',
+                        ? 'var(--tab-active-text)'
+                        : 'var(--text-muted)',
                       cursor: 'pointer',
                       transition: 'color 0.2s',
                     }}
@@ -1017,8 +991,8 @@ export default function LoginPage() {
                       display: 'flex',
                       alignItems: 'center',
                       color: eyeHovered
-                        ? isDark ? 'rgba(255,255,255,0.6)' : 'rgba(15, 23, 42, 0.65)'
-                        : isDark ? 'rgba(255,255,255,0.25)' : 'rgba(15, 23, 42, 0.35)',
+                        ? 'var(--text-secondary)'
+                        : 'var(--text-muted)',
                       transition: 'color 0.2s',
                     }}
                   >
@@ -1038,7 +1012,7 @@ export default function LoginPage() {
                 width: '100%',
                 height: '48px',
                 marginTop: '36px',
-                background: 'linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%)',
+                background: 'var(--btn-primary-bg)',
                 border: 'none',
                 borderRadius: '24px',
                 color: 'white',
@@ -1046,7 +1020,7 @@ export default function LoginPage() {
                 fontWeight: '600',
                 cursor: isLoading ? 'not-allowed' : 'pointer',
                 transition: 'all 0.3s ease',
-                boxShadow: btnHovered && !isLoading ? btnHoverShadow : btnShadow,
+                boxShadow: btnHovered && !isLoading ? 'var(--btn-primary-hover-shadow)' : 'none',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -1075,7 +1049,7 @@ export default function LoginPage() {
           <div
             style={{
               fontSize: '13px',
-              color: isDark ? 'rgba(255,255,255,0.3)' : 'rgba(15, 23, 42, 0.55)',
+              color: 'var(--text-muted)',
               textAlign: 'center',
               marginTop: '24px',
             }}
@@ -1097,8 +1071,8 @@ export default function LoginPage() {
                 padding: 0,
                 fontSize: '13px',
                 color: bottomHovered
-                  ? isDark ? 'white' : '#0f172a'
-                  : isDark ? '#818cf8' : '#4f46e5',
+                  ? 'var(--text-heading)'
+                  : 'var(--tab-active-text)',
                 fontWeight: 500,
                 cursor: isLoading ? 'not-allowed' : 'pointer',
                 transition: 'color 0.2s',

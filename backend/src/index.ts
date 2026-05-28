@@ -13,7 +13,7 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>()
 
 app.use('*', cors({
-  origin: ['http://localhost:5173', 'https://student-support-chat.pages.dev'],
+  origin: ['http://localhost:5173', 'https://student-support-chat-cdw.pages.dev'],
   allowHeaders: ['Content-Type', 'Authorization'],
   allowMethods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
   credentials: true,

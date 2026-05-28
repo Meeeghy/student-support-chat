@@ -1,207 +1,185 @@
-# Student Support Chat
+# 💬 SupportChat — Student Support Chat Application
 
-A full-stack support chat application where students can log in and start conversations, and support/sales team members can assign, reassign, and reply to those conversations in realtime.
-
-This project is built as a complete solution for the **Intern Project: Student Support Chat** test of competence.
+A full-stack real-time support chat application built for the **Intern Test of Competence**. Students can open support conversations, and a sales/support team can assign, reply, and manage those conversations in real-time.
 
 ---
 
-## 🚀 Deployed URLs
+## 🌐 Live Demo
 
-- **Frontend (Cloudflare Pages)**: [https://student-support-chat.pages.dev](https://student-support-chat.pages.dev)
-- **Backend API (Cloudflare Workers)**: [https://student-support-chat-worker.workers.dev](https://student-support-chat-worker.workers.dev)
-
----
-
-## 🛠️ Stack
-
-- **Frontend**: Vite + React + TypeScript + React Router + TanStack Query
-- **Backend**: Cloudflare Workers + Hono
-- **Database / Auth / Realtime**: Supabase (Postgres + Supabase Auth + Supabase Realtime Channels)
-- **Styling**: Tailwind CSS + Custom theme variables supporting light/dark theme normalization (Linear/Stripe-style light mode, polished dark mode).
+| | URL |
+|---|---|
+| 🖥️ **Frontend** | https://student-support-chat-cdw.pages.dev |
+| ⚙️ **Backend API** | https://student-support-chat-worker.meeeghy.workers.dev |
+| 📦 **GitHub Repo** | https://github.com/Meeeghy/student-support-chat |
 
 ---
 
-## 🔑 Demo Users & Roles
+## 👥 Demo Users
 
-Since the app integrates with Supabase Auth, you can register new users directly through the **Sign Up** mode on the login screen. The app supports role-selection upon signup to automatically assign roles:
-- **Student**: Registers with `student` role. Can create threads and send/receive messages.
-- **Sales User**: Registers with `sales` role. Can see unassigned tickets, assign tickets to themselves, and reply.
-- **Manager**: Registers with `manager` role. Can view all tickets, reassign tickets to any sales user, and reply.
+Use these accounts to test all roles. All accounts use the same password: `Test1234`
+
+| Role | Email | Password | What they can do |
+|------|-------|----------|-----------------|
+| 🎓 Student | student1@gmail.com | Test1234 | Create conversations, send messages, see replies |
+| 💼 Sales | sales1@gmail.com | Test1234 | See unassigned conversations, assign to self, reply, close |
+| 👑 Manager | meryem@gmail.com | Test1234 | See all conversations, reassign to any sales user, reopen closed |
+
+> 💡 You can also create your own account by clicking **Sign Up** on the login page and selecting your role.
 
 ---
 
-## 📂 Project Structure
+## ✨ Features
+
+### 🎓 Student
+- Sign up and log in
+- Create support conversations with a subject and message
+- Send and receive messages in real-time
+- View conversation status (open / pending / closed)
+
+### 💼 Sales User
+- View all unassigned conversations
+- Assign a conversation to themselves
+- Reply to assigned conversations
+- Update conversation status (pending / closed)
+
+### 👑 Manager
+- View ALL conversations
+- Reassign any conversation to any sales user
+- Reopen closed conversations
+
+### ⚡ Technical Highlights
+- Real-time messages without page refresh (Supabase Realtime)
+- Role-based access control enforced on the backend
+- JWT authentication on every API request
+- Protected routes based on user role
+- Loading, empty, and error states on all pages
+- Clean professional UI with dark theme
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Vite + React + TypeScript |
+| UI Components | shadcn/ui + Tailwind CSS |
+| State Management | TanStack Query |
+| Routing | React Router v6 |
+| Backend | Cloudflare Workers + Hono |
+| Database | Supabase Postgres |
+| Authentication | Supabase Auth |
+| Realtime | Supabase Realtime |
+| Deployment | Cloudflare Pages + Workers |
+
+---
+
+## 📁 Project Structure
 
 ```
-├── backend/
+student-support-chat/
+├── frontend/              # Vite + React app
 │   ├── src/
-│   │   ├── index.ts          # Hono entry point
-│   │   ├── middleware/
-│   │   │   └── auth.ts       # Supabase JWT verify & profile resolver
-│   │   ├── routes/
-│   │   │   ├── conversations.ts # Thread CRUD & assign endpoints
-│   │   │   ├── messages.ts      # Message send endpoints
-│   │   │   └── users.ts         # User profiles info
-│   │   └── lib/
-│   │       └── supabaseAdmin.ts # Service role database client
-│   ├── wrangler.toml         # Wrangler deployment setup
-│   └── package.json
-├── frontend/
-│   ├── src/
-│   │   ├── index.css         # Styling system & theme custom variables
-│   │   ├── main.tsx
-│   │   ├── lib/
-│   │   │   ├── apiClient.ts  # Fetch client wrapper with Auth header
-│   │   │   └── supabase.ts   # Supabase client setup
-│   │   └── pages/
-│   │       ├── LoginPage.tsx        # Login & Signup view
-│   │       ├── StudentInboxPage.tsx # Student dashboard
-│   │       ├── SalesInboxPage.tsx   # Sales/support representative panel
-│   │       └── ManagerQueuePage.tsx # Manager queue and reassignment console
-│   └── package.json
-└── README.md
+│   │   ├── pages/         # LoginPage, StudentInboxPage, SalesInboxPage, ManagerQueuePage
+│   │   ├── lib/           # supabaseClient, apiClient, realtime
+│   │   └── app/           # router, queryClient
+│   └── .env               # environment variables
+└── backend/               # Cloudflare Worker + Hono
+    ├── src/
+    │   ├── routes/        # conversations, messages, users
+    │   ├── middleware/    # auth (JWT verification)
+    │   └── lib/           # supabaseAdmin
+    └── wrangler.toml
 ```
 
 ---
 
-## ⚙️ Setup & Installation
+## 🚀 Local Setup
 
-### 1. Database Setup (Supabase)
+### Prerequisites
+- Node.js 18+
+- A Supabase project
+- A Cloudflare account
 
-Create the necessary tables, types, and indexes in your Supabase project using the SQL Editor:
-
-```sql
--- Create custom enums
-create type app_role as enum ('student', 'sales', 'manager');
-create type conversation_status as enum ('open', 'pending', 'closed');
-create type message_sender_type as enum ('student', 'team');
-
--- Profiles Table
-create table profiles (
-  id uuid primary key references auth.users(id) on delete cascade,
-  full_name text not null,
-  role app_role not null,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz
-);
-
--- Conversation Threads Table
-create table conversation_threads (
-  id uuid primary key default gen_random_uuid(),
-  student_id uuid not null references profiles(id),
-  assigned_to uuid references profiles(id),
-  subject text not null,
-  status conversation_status not null default 'open',
-  last_message_at timestamptz not null default now(),
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
-
--- Messages Table
-create table conversation_messages (
-  id uuid primary key default gen_random_uuid(),
-  thread_id uuid not null references conversation_threads(id) on delete cascade,
-  sender_id uuid not null references profiles(id),
-  sender_type message_sender_type not null,
-  body text not null,
-  created_at timestamptz not null default now()
-);
-
--- Assignment Logging Events
-create table conversation_assignment_events (
-  id uuid primary key default gen_random_uuid(),
-  thread_id uuid not null references conversation_threads(id) on delete cascade,
-  assigned_by uuid not null references profiles(id),
-  assigned_to uuid references profiles(id),
-  created_at timestamptz not null default now()
-);
-
--- Enable Realtime for tables (essential for messages and threads status)
-alter publication supabase_realtime add table conversation_messages;
-alter publication supabase_realtime add table conversation_threads;
-
--- Recommended Indexes
-create index conversation_threads_student_id_idx on conversation_threads(student_id);
-create index conversation_threads_assigned_to_idx on conversation_threads(assigned_to);
-create index conversation_threads_status_idx on conversation_threads(status);
-create index conversation_threads_last_message_at_idx on conversation_threads(last_message_at desc);
-create index conversation_messages_thread_id_created_at_idx on conversation_messages(thread_id, created_at);
+### 1. Clone the repository
+```bash
+git clone https://github.com/Meeeghy/student-support-chat.git
+cd student-support-chat
 ```
 
-### 2. Backend Setup (`backend/`)
+### 2. Setup the backend
+```bash
+cd backend
+npm install
+```
+Create a `.dev.vars` file:
+```
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_SERVICE_ROLE_KEY=your_secret_key
+```
+Start the backend:
+```bash
+npx wrangler dev
+```
+Backend runs at: `http://localhost:8787`
 
-1. Navigate to the backend folder:
-   ```bash
-   cd backend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Configure environment variables in `.dev.vars` (for local development):
-   ```ini
-   SUPABASE_URL=https://your-supabase-project.supabase.co
-   SUPABASE_SERVICE_ROLE_KEY=your-service-role-key-here
-   ```
-4. Start the local Worker server:
-   ```bash
-   npx wrangler dev --port 8787
-   ```
-
-### 3. Frontend Setup (`frontend/`)
-
-1. Navigate to the frontend folder:
-   ```bash
-   cd ../frontend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Create a `.env` file from the example:
-   ```bash
-   cp .env.example .env
-   ```
-4. Configure variables in `.env`:
-   ```env
-   VITE_SUPABASE_URL=https://your-supabase-project.supabase.co
-   VITE_SUPABASE_ANON_KEY=your-anon-publishable-key-here
-   VITE_API_URL=http://localhost:8787
-   ```
-5. Start the frontend Vite dev server:
-   ```bash
-   npm run dev
-   ```
+### 3. Setup the frontend
+```bash
+cd frontend
+npm install
+```
+Create a `.env` file:
+```
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your_anon_key
+VITE_API_URL=http://localhost:8787
+```
+Start the frontend:
+```bash
+npm run dev
+```
+Frontend runs at: `http://localhost:5173`
 
 ---
 
-## ☁️ Cloudflare Deployment
+## ☁️ Deployment
 
-### Deploy Backend Worker
+### Backend (Cloudflare Workers)
+```bash
+cd backend
+npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
+npx wrangler deploy
+```
 
-1. Authenticate with Wrangler:
-   ```bash
-   npx wrangler login
-   ```
-2. Add secret credentials for production environment:
-   ```bash
-   npx wrangler secret put SUPABASE_SERVICE_ROLE_KEY
-   ```
-3. Deploy the worker:
-   ```bash
-   npx wrangler deploy
-   ```
+### Frontend (Cloudflare Pages)
+```bash
+cd frontend
+npm run build
+# Upload the dist/ folder to Cloudflare Pages
+```
 
-### Deploy Frontend Pages
+---
 
-1. Build the production assets:
-   ```bash
-   cd frontend
-   npm run build
-   ```
-2. Deploy the `dist/` directory directly to Cloudflare Pages via CLI or connect the repository to the Cloudflare Pages dashboard for automatic Git deployment.
-   Make sure you specify the environment variables:
-   - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
-   - `VITE_API_URL` (points to the deployed backend worker URL)
+## 📋 Environment Variables
+
+### Frontend `.env`
+| Variable | Description |
+|----------|-------------|
+| `VITE_SUPABASE_URL` | Your Supabase project URL |
+| `VITE_SUPABASE_ANON_KEY` | Your Supabase publishable key |
+| `VITE_API_URL` | Backend Worker URL |
+
+### Backend `.dev.vars`
+| Variable | Description |
+|----------|-------------|
+| `SUPABASE_URL` | Your Supabase project URL |
+| `SUPABASE_SERVICE_ROLE_KEY` | Your Supabase secret key |
+
+---
+
+## 📝 Submission Details
+
+- **Position**: Intern
+- **Repo**: https://github.com/Meeeghy/student-support-chat
+- **Frontend**: https://student-support-chat-cdw.pages.dev
+- **Backend API**: https://student-support-chat-worker.meeeghy.workers.dev
+- **Deadline**: 1st June, 2026

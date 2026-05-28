@@ -24,7 +24,29 @@ Use these accounts to test all roles. All accounts use the same password: `Test1
 | 💼 Sales | sales1@gmail.com | Test1234 | See unassigned conversations, assign to self, reply, close |
 | 👑 Manager | meryem@gmail.com | Test1234 | See all conversations, reassign to any sales user, reopen closed |
 
-> 💡 You can also create your own account by clicking **Sign Up** on the login page and selecting your role.
+---
+
+## 🔐 How to Test All Roles
+
+There are **two ways** to test the app:
+
+**Option 1 — Use existing demo accounts:**
+
+| Role | Email | Password |
+|------|-------|----------|
+| 🎓 Student | student1@gmail.com | Test1234 |
+| 💼 Sales | sales1@gmail.com | Test1234 |
+| 👑 Manager | meryem@gmail.com | Test1234 |
+
+**Option 2 — Create your own accounts:**
+
+1. Go to the live app: https://student-support-chat-cdw.pages.dev
+2. Click **Sign Up**
+3. Select your role (Student, Sales, or Manager)
+4. Fill in your name, email and password
+5. You will be redirected to the correct dashboard automatically
+
+> 💡 The role selector on signup is intentionally kept open so reviewers can easily test all three roles without needing to use pre-created accounts.
 
 ---
 
